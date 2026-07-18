@@ -1,0 +1,23 @@
+const express = require('express')
+const router = express.Router()
+const ctrl = require('../controllers/archiveController')
+const { archiveUpload } = require('../middleware/upload')
+
+router.get('/summary', ctrl.getSummary)
+router.get('/context', ctrl.getArchiveContext)
+router.get('/categories', ctrl.listCategories)
+router.get('/reports', ctrl.getReports)
+router.get('/', ctrl.listDocuments)
+router.post('/', archiveUpload.array('files', 20), ctrl.uploadDocuments)
+router.post('/missing', ctrl.createMissing)
+router.get('/:id', ctrl.getDocument)
+router.put('/:id', ctrl.updateDocument)
+router.delete('/:id', ctrl.deleteDocument)
+router.get('/:id/download', ctrl.downloadDocument)
+router.get('/:id/preview', ctrl.previewDocument)
+router.get('/:id/ocr-extract', ctrl.ocrExtract)
+router.post('/:id/versions', archiveUpload.single('file'), ctrl.addVersion)
+router.post('/:id/relations', ctrl.addRelation)
+router.delete('/:id/relations/:relId', ctrl.deleteRelation)
+
+module.exports = router

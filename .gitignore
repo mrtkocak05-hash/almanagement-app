@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database data files (keep folder structure)
+database/*.db
+database/*.db-wal
+database/*.db-shm
+
+# Storage uploaded files (keep folder structure)
+storage/assets/*
+storage/documents/*
+storage/photos/*
+storage/reports/*
+storage/temp/*
+!storage/**/.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
