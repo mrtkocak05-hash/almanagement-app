@@ -3,10 +3,12 @@ const path = require('path')
 const fs = require('fs')
 const { seedMasterData } = require('./masterDataSeed')
 
-const DB_DIR = path.join(__dirname, '../../../database')
-const DB_PATH = path.join(DB_DIR, 'almanagement.db')
+// In Lambda/Netlify Functions use /tmp (writable ephemeral storage)
+const IS_LAMBDA = !!(process.env.LAMBDA_TASK_ROOT || process.env.NETLIFY_LOCAL || process.env.AWS_LAMBDA_FUNCTION_NAME)
+const DB_DIR = IS_LAMBDA ? '/tmp' : path.join(__dirname, '../../../database')
+const DB_PATH = process.env.DB_PATH || path.join(DB_DIR, 'almanagement.db')
 
-if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true })
+if (!IS_LAMBDA && !fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true })
 
 const SCHEMA = `
   PRAGMA journal_mode = WAL;

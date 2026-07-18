@@ -2,7 +2,7 @@ import { useState, memo, useEffect, useCallback } from 'react'
 import {
   Building2, User, Palette, Bell, HardDrive, Bot, Key, Shield,
   Save, CheckCircle2, Eye, EyeOff, CheckCircle, XCircle, RefreshCw,
-  Terminal, Trash2, Building, BarChart3, RotateCcw, Database, Loader2,
+  Terminal, BarChart3, Loader2,
 } from 'lucide-react'
 import { Card } from '@/components/ui'
 import { cn } from '@/utils/cn'

@@ -21,4 +21,4 @@ services:
         value: 7d
       # Set this to your Netlify URL after frontend is deployed:
       - key: CORS_ORIGIN
-        value: https://almanagement.netlify.app
+        value: https://almanagement-app.netlify.app

@@ -1,16 +1,19 @@
 [build]
-  command = "npm run build"
+  command = "npm run build && cd backend && npm install --omit=dev"
   publish = "dist"
 
-# Proxy /api/* requests to the Render backend
-# REPLACE the URL below with your actual Render service URL after backend is deployed
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "nft"
+
+# Route /api/* to the serverless Express function
 [[redirects]]
   from = "/api/*"
-  to = "https://almanagement-backend.onrender.com/api/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
-# SPA fallback — all other routes serve index.html
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
