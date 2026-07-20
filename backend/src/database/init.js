@@ -1,10 +1,9 @@
-const Database = require('better-sqlite3')
 const path = require('path')
 const fs = require('fs')
 const { seedMasterData } = require('./masterDataSeed')
 
-// In Lambda/Netlify Functions use /tmp (writable ephemeral storage)
-const IS_LAMBDA = !!(process.env.LAMBDA_TASK_ROOT || process.env.NETLIFY_LOCAL || process.env.AWS_LAMBDA_FUNCTION_NAME)
+// In serverless environments (Lambda/Netlify/Vercel) use /tmp (writable ephemeral storage)
+const IS_LAMBDA = !!(process.env.LAMBDA_TASK_ROOT || process.env.NETLIFY_LOCAL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL)
 const DB_DIR = IS_LAMBDA ? '/tmp' : path.join(__dirname, '../../../database')
 const DB_PATH = process.env.DB_PATH || path.join(DB_DIR, 'almanagement.db')
 
@@ -132,6 +131,8 @@ const SCHEMA = `
   CREATE TABLE IF NOT EXISTS activities (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     asset_id      INTEGER REFERENCES assets(id),
+    purchase_id   INTEGER,
+    sale_id       INTEGER,
     type          TEXT NOT NULL,
     title         TEXT NOT NULL,
     amount        REAL,
@@ -1155,7 +1156,10 @@ function runMigrations(db) {
 }
 
 function createDatabase() {
-  const db = new Database(DB_PATH)
+  const DbClass = process.env.USE_SQLJS
+    ? require('./sqljs-compat').Database
+    : require('better-sqlite3')
+  const db = new DbClass(DB_PATH)
   runMigrations(db)
   db.exec(SCHEMA)
   seedMasterData(db)

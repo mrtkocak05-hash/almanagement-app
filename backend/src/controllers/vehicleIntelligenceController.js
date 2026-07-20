@@ -8,7 +8,9 @@ const multer = require('multer')
 const db     = require('../database/init')
 const svc    = require('../services/vehicleIntelligenceService')
 
-const STORAGE_BASE = path.join(__dirname, '../../../storage/vehicle-photos')
+const STORAGE_BASE = process.env.VERCEL
+  ? '/tmp/vehicle-photos'
+  : path.join(__dirname, '../../../storage/vehicle-photos')
 if (!fs.existsSync(STORAGE_BASE)) fs.mkdirSync(STORAGE_BASE, { recursive: true })
 
 const storage = multer.diskStorage({

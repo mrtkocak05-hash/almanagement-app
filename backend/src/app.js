@@ -41,8 +41,17 @@ app.use(requestLogger)
 // Serve uploaded files
 app.use('/storage', express.static(path.join(__dirname, '../../storage')))
 
+// Serve React build (frontend)
+const distPath = path.join(__dirname, '../../dist')
+app.use(express.static(distPath))
+
 // API Routes
 app.use('/api', routes)
+
+// SPA fallback — serve index.html for any non-API route
+app.get('/{*path}', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'))
+})
 
 // 404 + Error handlers
 app.use(notFound)

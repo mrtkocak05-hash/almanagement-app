@@ -75,7 +75,7 @@ export const ExecutiveScore = memo(function ExecutiveScore() {
           <Trophy className="w-3.5 h-3.5 text-white" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-foreground leading-none">Executive Score</p>
+          <p className="text-sm font-semibold text-foreground leading-none">Yönetici Skoru</p>
           <p className="text-xs text-muted-foreground mt-0.5">0-100 yönetim skoru</p>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { useDashboard } from '@/hooks/useDashboard'
 
 // Lazy load all dashboard widgets
 const CEOMorningBrief   = lazy(() => import('@/modules/dashboard/CEOMorningBrief').then(m => ({ default: m.CEOMorningBrief })))
-const CEOKPIBar         = lazy(() => import('@/modules/dashboard/CEOKPIBar').then(m => ({ default: m.CEOKPIBar })))
 const ExecutiveScore    = lazy(() => import('@/modules/dashboard/ExecutiveScore').then(m => ({ default: m.ExecutiveScore })))
 const ChartPanel        = lazy(() => import('@/modules/dashboard/ChartPanel').then(m => ({ default: m.ChartPanel })))
 const PortfoyAnalizi    = lazy(() => import('@/modules/dashboard/PortfoyAnalizi').then(m => ({ default: m.PortfoyAnalizi })))
@@ -56,11 +55,6 @@ export function Dashboard() {
       {/* Row 1 — Balance Summary Widget */}
       <Suspense fallback={<Placeholder h="h-[116px]" />}>
         <BakiyeWidget />
-      </Suspense>
-
-      {/* Row 2 — 10 KPI Bar */}
-      <Suspense fallback={<Placeholder h="h-14" />}>
-        <CEOKPIBar />
       </Suspense>
 
       {/* Row 2 — Executive Score (1/4) + Chart Panel (3/4) */}

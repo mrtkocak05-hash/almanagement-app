@@ -2,7 +2,9 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 
-const STORAGE_BASE = path.join(__dirname, '../../../storage')
+const STORAGE_BASE = process.env.VERCEL
+  ? '/tmp/storage'
+  : path.join(__dirname, '../../../storage')
 
 function makeStorage(folder) {
   const dir = path.join(STORAGE_BASE, folder)
